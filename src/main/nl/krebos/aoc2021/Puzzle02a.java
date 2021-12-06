@@ -1,11 +1,9 @@
-package nl.krebos.aoc2021.puzzle02;
+package nl.krebos.aoc2021;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-import nl.krebos.aoc2021.Puzzle;
 
 public class Puzzle02a extends Puzzle {
   
@@ -14,9 +12,8 @@ public class Puzzle02a extends Puzzle {
   }
 
   public long part1() {
-    long result = 0;
     try (var reader = new BufferedReader(new FileReader(this.getInputFile()))) {
-      Long x = 0L, depth = 0L, aim = 0L;
+      Long x = 0L, depth = 0L;
       String input;
       while ((input = reader.readLine()) != null) {
         Line line = processLine(input);
@@ -46,8 +43,7 @@ public class Puzzle02a extends Puzzle {
     return this.getResult();
   }
 
-  public long part2() {
-    long result = 0;
+  public long part2() {    
     try (var reader = new BufferedReader(new FileReader(this.getInputFile()))) {
       Long x = 0L, depth = 0L, aim = 0L;
       String input;

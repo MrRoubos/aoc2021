@@ -1,7 +1,9 @@
-package nl.krebos.aoc2021.puzzle05;
+package nl.krebos.aoc2021;
 
 
 import org.junit.jupiter.api.Test;
+
+import nl.krebos.aoc2021.Puzzle05;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

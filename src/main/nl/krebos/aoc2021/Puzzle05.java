@@ -1,14 +1,9 @@
-package nl.krebos.aoc2021.puzzle05;
+package nl.krebos.aoc2021;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-
-
-import nl.krebos.aoc2021.Puzzle;
 
 public class Puzzle05 extends Puzzle {
   public int maxX = 10;
@@ -30,7 +25,7 @@ public class Puzzle05 extends Puzzle {
     
     try (var reader = new BufferedReader(new FileReader(this.getInputFile()))) {
       while ((input = reader.readLine()) != null) {
-        Line line = processLine(input);
+        Line5 line = processLine(input);
         if (line != null) {
           drawLine(line, map);
         }
@@ -74,7 +69,7 @@ public class Puzzle05 extends Puzzle {
     }
   }
 
-  private void drawLine(Line line, int [][] map) {
+  private void drawLine(Line5 line, int [][] map) {
     int x1 = line.start.x;
     int y1 = line.start.y;
     int x2 = line.end.x;
@@ -125,12 +120,12 @@ public class Puzzle05 extends Puzzle {
     }
   }
 
-  private Line processLine(String input) {
+  private Line5 processLine(String input) {
     // let's try to use a regexp, but I think it is too hard for now :(       
     System.out.println("input: " + input);
     String startend[] = input.split(" -> ");
     //System.out.println("startend: " + startend[0] + "; " + startend[1]);
-    Line line = new Line();
+    Line5 line = new Line5();
     String [] coord = startend[0].split(",");
     line.addStart(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
     coord = startend[1].split(",");
@@ -176,7 +171,7 @@ public class Puzzle05 extends Puzzle {
 }
 
 
-class Line {
+class Line5 {
   Point start;
   Point end;
 

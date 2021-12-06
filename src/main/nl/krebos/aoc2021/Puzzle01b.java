@@ -1,4 +1,4 @@
-package nl.krebos.aoc2021.puzzle01;
+package nl.krebos.aoc2021;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

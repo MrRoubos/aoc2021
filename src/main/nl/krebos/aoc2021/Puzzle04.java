@@ -1,4 +1,4 @@
-package nl.krebos.aoc2021.puzzle04;
+package nl.krebos.aoc2021;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import nl.krebos.aoc2021.Puzzle;
 
 public class Puzzle04 extends Puzzle {
   

@@ -1,4 +1,4 @@
-package nl.krebos.aoc2021.puzzle03;
+package nl.krebos.aoc2021;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import nl.krebos.aoc2021.Puzzle;
 
 public class Puzzle03 extends Puzzle {
   public int byteLength = 0; 
@@ -207,8 +205,8 @@ public class Puzzle03 extends Puzzle {
       }
     }
   }
-}
-class Line {
-  String direction;
-  Long distance;
+  class Line {
+    String direction;
+    Long distance;
+  }  
 }
