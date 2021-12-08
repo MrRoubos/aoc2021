@@ -11,15 +11,15 @@ public class Puzzle05 extends Puzzle {
   private boolean part2 = false; 
   
   
-  public Puzzle05(String name, int day, String part) {
-    super(name, day, part);
+  public Puzzle05(String name, int day, int part, String file) {
+    super(name, day, part, file);
   }
 
   public long part1() {
     String input = "";
     int [][] map = new int[maxX][maxY];
     
-    if (this.getPart().charAt(0) == '2') {
+    if (this.getPart() == 2) {
       part2 = true;
     }
     
@@ -59,13 +59,13 @@ public class Puzzle05 extends Puzzle {
     for (int y=0; y < maxY; y++) {
       for (int x=0; x < maxX; x++ ) {
         if (map[x][y]==0) {
-          System.out.print(". ");
+          pr(". ");
         } else {
-          System.out.print(map[x][y] + " "); 
+          pr(map[x][y] + " "); 
         }
         
       }
-      System.out.println("");
+      prl("");
     }
   }
 
@@ -99,13 +99,13 @@ public class Puzzle05 extends Puzzle {
     } else {
       // part2, diagonal
       if (part2) {
-        System.out.println("part2");
-        //System.out.println("x1="+x1+";y1="+y1+";x2="+x2+";y2="+y2 );
+        prl("part2");
+        //prl("x1="+x1+";y1="+y1+";x2="+x2+";y2="+y2 );
         boolean drawing = true;
         x= x1;
         y= y1;
         while (drawing) {
-          //System.out.println("x="+x+";y="+y);
+          //prl("x="+x+";y="+y);
           map[x][y]++;
           
           if (x1 > x2) x--;
@@ -122,9 +122,9 @@ public class Puzzle05 extends Puzzle {
 
   private Line5 processLine(String input) {
     // let's try to use a regexp, but I think it is too hard for now :(       
-    System.out.println("input: " + input);
+    prl("input: " + input);
     String startend[] = input.split(" -> ");
-    //System.out.println("startend: " + startend[0] + "; " + startend[1]);
+    //prl("startend: " + startend[0] + "; " + startend[1]);
     Line5 line = new Line5();
     String [] coord = startend[0].split(",");
     line.addStart(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
@@ -137,7 +137,7 @@ public class Puzzle05 extends Puzzle {
       line.printPoint();
     } else {
       if (! part2) {
-        System.out.println("Not horizontal or vertical");
+        prl("Not horizontal or vertical");
         line = null;        
       } else {
         // for part2 we are also interested in diagonal lines, only 45 degrees
@@ -152,11 +152,11 @@ public class Puzzle05 extends Puzzle {
         if (y1 > y2) yres = y1-y2;
         else yres = y2-y1;
         if (xres != yres) {
-          System.out.println("No diagonal, so skip!!!");
+          prl("No diagonal, so skip!!!");
           System.exit(0);
           line = null;
         } else {
-          System.out.println("Diagonal");
+          prl("Diagonal");
         }
       }
 
@@ -166,7 +166,7 @@ public class Puzzle05 extends Puzzle {
    
 
   public void printResult() {    
-    System.out.println(this + "; Result: " + this.getResult());
+    prl(this + "; Result: " + this.getResult());
   }   
 }
 

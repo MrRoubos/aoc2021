@@ -14,8 +14,8 @@ public class Puzzle06 extends Puzzle {
   long totalCreated=0;
   private boolean part2 = false; 
     
-  public Puzzle06(String name, int day, String part) {
-    super(name, day, part);
+  public Puzzle06(String name, int day, int part, String file) {
+    super(name, day, part, file);
   }
 
   public long part1() {
@@ -37,14 +37,14 @@ public class Puzzle06 extends Puzzle {
 
 
   private void printList(int i) {
-    System.out.print("After " + i + " day(s): ");
+    pr("After " + i + " day(s): ");
     if (part2) {
-      System.out.println(list.size());
+      prl("" + list.size());
     } else {
       for (int j=0; j < list.size(); j++) {
-        System.out.print(list.get(j).timer +  ",");
+        pr(list.get(j).timer +  ",");
       }
-      System.out.println("");
+      prl("");
     }
   }
 
@@ -62,7 +62,7 @@ public class Puzzle06 extends Puzzle {
     String input = "";
     try (var reader = new BufferedReader(new FileReader(this.getInputFile()))) {
       while ((input = reader.readLine()) != null) {
-        System.out.println("Initial state: " + input);
+        prl("Initial state: " + input);
         initialStr = input.split(","); 
       }      
     } catch (FileNotFoundException e) {
@@ -77,7 +77,7 @@ public class Puzzle06 extends Puzzle {
   }
 
   public void printResult() {    
-    System.out.println(this + "; Result: " + this.getResult());
+    prl(this + "; Result: " + this.getResult());
   }   
 }
 

@@ -5,15 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Puzzle04 extends Puzzle {
   
-  public Puzzle04(String name, int day, String part) {
-    super(name, day, part);
+  public Puzzle04(String name, int day, int part, String file) {
+    super(name, day, part, file);
   }
 
   /**
@@ -28,7 +27,7 @@ public class Puzzle04 extends Puzzle {
       // First read bingo Nrs
       input = reader.readLine();
       String [] bingoNrs = input.split(",");
-      System.out.println("Total numbers: " + bingoNrs.length);
+      prl("Total numbers: " + bingoNrs.length);
       
        
       // Then read read set of Boards
@@ -45,7 +44,7 @@ public class Puzzle04 extends Puzzle {
           boards.add(board);
           boardNr++;
           y = 0;
-          System.out.println("Board: " + boardNr);
+          prl("Board: " + boardNr);
         } else {          
           String [] rowNumbers = processRow(input);
           x = 0;
@@ -59,7 +58,7 @@ public class Puzzle04 extends Puzzle {
         }
         
       }
-      System.out.println("Total boards: " + boardNr);
+      prl("Total boards: " + boardNr);
       for (Board b : boards) {
         b.printBoard();
       }
@@ -100,7 +99,7 @@ public class Puzzle04 extends Puzzle {
           boards.add(board);
           boardNr++;
           y = 0;
-          System.out.println("Board: " + boardNr);
+          prl("Board: " + boardNr);
         } else {          
           String [] rowNumbers = processRow(input);
           x = 0;
@@ -133,11 +132,11 @@ public class Puzzle04 extends Puzzle {
     long finalScore = 0L;
     for (String bingoValue : bingoNrs) {
       draw++;
-      System.out.println("Draw nr:" + draw + "; bingoValue" + bingoValue);
+      prl("Draw nr:" + draw + "; bingoValue" + bingoValue);
       for (Board board : boards) {
         result = doDraw(bingoValue, board);
         if (result) {
-          System.out.println("Winning board:");
+          prl("Winning board:");
           board.printBoard();
           long sum = board.sumUnmarked();
           finalScore = sum * Long.parseLong(bingoValue);
@@ -157,14 +156,14 @@ public class Puzzle04 extends Puzzle {
     long finalScore = 0L;
     for (String bingoValue : bingoNrs) {
       draw++;
-      System.out.println("Draw nr:" + draw + "; bingoValue" + bingoValue);
+      prl("Draw nr:" + draw + "; bingoValue" + bingoValue);
       for (Board board : boards) {
         result = doDraw2(bingoValue, board);
         if (result) {
-          System.out.println("Winning board: " + board.boardNr);
+          prl("Winning board: " + board.boardNr);
           board.won = true;
           if (boards.size() - countWonBoards(boards) == 0) {
-            System.out.println("Last Winning board:" + board.boardNr);
+            prl("Last Winning board:" + board.boardNr);
             board.printBoard();
             long sum = board.sumUnmarked();
             finalScore = sum * Long.parseLong(bingoValue);
@@ -208,7 +207,7 @@ public class Puzzle04 extends Puzzle {
           
         }
         if (x1 == 5) {
-          System.out.println("Full row!");
+          prl("Full row!");
          full = true;
          break;
         }
@@ -216,7 +215,6 @@ public class Puzzle04 extends Puzzle {
       
       if (! full) {
         // check for full column
-        int y1 = 0;
         for (int y = 0; y < 5 ; y++) {
           x1=0;
           for (int x =0; x < 5; x++ ) {
@@ -226,7 +224,7 @@ public class Puzzle04 extends Puzzle {
             
           }
           if (x1 == 5) {
-            System.out.println("Full column!");
+            prl("Full column!");
            full = true;
            break;
           }
@@ -266,7 +264,7 @@ public class Puzzle04 extends Puzzle {
           
         }
         if (x1 == 5) {
-          System.out.println("Full row!");
+          prl("Full row!");
          full = true;
          break;
         }
@@ -274,7 +272,6 @@ public class Puzzle04 extends Puzzle {
       
       if (! full) {
         // check for full column
-        int y1 = 0;
         for (int y = 0; y < 5 ; y++) {
           x1=0;
           for (int x =0; x < 5; x++ ) {
@@ -284,7 +281,7 @@ public class Puzzle04 extends Puzzle {
             
           }
           if (x1 == 5) {
-            System.out.println("Full column!");
+            prl("Full column!");
            full = true;
            break;
           }
@@ -310,17 +307,17 @@ public class Puzzle04 extends Puzzle {
     if (sb.length() > 0 ) {
       values.add(sb.toString());
     }    
-    System.out.println("values: " + values.size());   
+    prl("values: " + values.size());   
     // source: https://www.javatpoint.com/convert-arraylist-to-string-array-in-java 
     return values.toArray(new String[values.size()]);
   }
 
   public void printResult() {    
-    System.out.println(this + "; Result: " + this.getResult());
+    prl(this + "; Result: " + this.getResult());
   }   
 }
 
-class Board {
+class Board {  
   int boardNr;
   Map<String,String> allValues = new HashMap<>();
   Position [][] positions = new Position [5][5];

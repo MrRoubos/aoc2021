@@ -3,14 +3,15 @@ package nl.krebos.aoc2021;
 public class Puzzle {
   private String name;
   private int day;
-  private String part;
+  private int part;
   private String inputFile;
   private long result;
 
-  public Puzzle (String name, int day, String part) {
+  public Puzzle (String name, int day, int part, String file) {
     this.name = name;
     this.day = day;
     this.part = part;
+    this.inputFile = file;
   }
   
   public String getName() {
@@ -25,10 +26,10 @@ public class Puzzle {
   public void setDay(int day) {
     this.day = day;
   }
-  public String getPart() {
+  public int getPart() {
     return part;
   }
-  public void setPart(String part) {
+  public void setPart(int part) {
     this.part = part;
   }
   public String getInputFile() {
@@ -46,5 +47,12 @@ public class Puzzle {
 
   public String toString() {
     return "Day: " + day + "; Puzzle: " + name + "; Part: " + part;
+  }
+
+  public static void pr(String out) {
+    System.out.print(out);
+  }
+  public static void prl(String out) {
+    System.out.println(out);
   }
 }

@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public class Puzzle02a extends Puzzle {
   
-  public Puzzle02a(String name, int day, String part) {
-    super(name, day, part);
+  public Puzzle02a(String name, int day, int part, String file) {
+    super(name, day, part, file);
   }
 
   public long part1() {
@@ -28,10 +28,10 @@ public class Puzzle02a extends Puzzle {
             depth -= line.distance;
             break;
         }
-        System.out.println("horizontal: " + x + "; depth: " + depth);
+        prl("horizontal: " + x + "; depth: " + depth);
       }
       this.setResult(x * depth);
-      System.out.println("horizontal: " + x + "; depth: " + depth + "; multiplied = " +this.getResult());
+      prl("horizontal: " + x + "; depth: " + depth + "; multiplied = " +this.getResult());
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -63,10 +63,10 @@ public class Puzzle02a extends Puzzle {
             aim -= line.distance;
             break;
           }
-        System.out.println("horizontal: " + x + "; depth: " + depth + "; aim: " + aim);
+        prl("horizontal: " + x + "; depth: " + depth + "; aim: " + aim);
       }    
       this.setResult(x * depth);
-      System.out.println("horizontal: " + x + "; depth: " + depth + "; multiplied = " +this.getResult());
+      prl("horizontal: " + x + "; depth: " + depth + "; multiplied = " +this.getResult());
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -79,7 +79,7 @@ public class Puzzle02a extends Puzzle {
   }  
   
   public void printResult() {    
-    System.out.println(this + "; Result: " + this.getResult());
+    prl(this + "; Result: " + this.getResult());
   }
   
   private static Line processLine(String input) {

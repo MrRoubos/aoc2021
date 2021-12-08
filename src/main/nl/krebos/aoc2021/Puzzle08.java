@@ -10,10 +10,18 @@ import java.util.Map;
 public class Puzzle08 extends Puzzle {
   boolean part2 = false; 
     
-  public Puzzle08(String name, int day, String part) {
-    super(name, day, part);
+  public Puzzle08(String name, int day, int part, String file) {
+    super(name, day, part, file);
   }
 
+  public long execute() {
+    if (this.getPart() == 1) {
+      return part1();
+    } else {
+      return part2();
+    }
+  }
+  
   /**
    * Read line from file
    *   split the line on | character
@@ -26,7 +34,7 @@ public class Puzzle08 extends Puzzle {
    *   8 -> 7 segments 
    * @return
    */
-  public long part1() {           
+  private long part1() {           
     String input = "";
     int total = 0;
     try (var reader = new BufferedReader(new FileReader(this.getInputFile()))) {
@@ -38,26 +46,23 @@ public class Puzzle08 extends Puzzle {
     } catch (IOException e) {
       e.printStackTrace();
     }    
-    System.out.println("Total 1,4,7,8: " + total);
+    prl("Total 1,4,7,8: " + total);
     this.setResult(total);         
     return this.getResult();
   }
 
   private int processLine(String input) {
-    System.out.println("input : " + input);
+    prl("input : " + input);
     String [] parts = input.split(" \\| ");
-    System.out.println("part0 : " + parts[0]);
-    System.out.println("part1 : " + parts[1]);
-    String [] patterns = parts[0].split(" ");
-//    for (String value : patterns) {
-//      System.out.println("Pattern: >" + value + "<") ;      
-//    }
+    prl("part0 : " + parts[0]);
+    prl("part1 : " + parts[1]);
+
     String [] digitsOut = parts[1].split(" ");
     for (String value : digitsOut) {
-      System.out.println("Digits: >" + value + "<") ;      
+      prl("Digits: >" + value + "<") ;      
     } 
     int count = count1478(digitsOut);
-    System.out.println("Aantal 1,4,7,8: " + count);
+    prl("Aantal 1,4,7,8: " + count);
     return count;
   }
   
@@ -75,7 +80,7 @@ public class Puzzle08 extends Puzzle {
     return count;
   }
 
-  public long part2() {           
+  private long part2() {           
     String input = "";
     int total = 0;
     try (var reader = new BufferedReader(new FileReader(this.getInputFile()))) {
@@ -87,7 +92,7 @@ public class Puzzle08 extends Puzzle {
     } catch (IOException e) {
       e.printStackTrace();
     }    
-    System.out.println("Total 1,4,7,8: " + total);
+    prl("Total 1,4,7,8: " + total);
     this.setResult(total);         
     return this.getResult();
   }
@@ -106,12 +111,12 @@ public class Puzzle08 extends Puzzle {
   private int decode(String[] digitsOut, Map<String, String> map) {
     String strNumber = "";
     for (String digit : digitsOut) {
-      // System.out.println("digit: " + digit);
+      // prl("digit: " + digit);
       for (String value : map.keySet()) {
         String number = map.get(value);
         if (value.length() == digit.length()) {
           int count = 0;
-          //System.out.println("check: " + value);
+          //prl("check: " + value);
           for (int i = 0; i < value.length(); i++) {
             for (int j=0; j < digit.length(); j++) {
               if (digit.substring(j,j+1).equals(value.substring(i,i+1))) {
@@ -120,7 +125,7 @@ public class Puzzle08 extends Puzzle {
             }          
           }
           if (count == value.length()) {
-            //System.out.println("gevonden");
+            //prl("gevonden");
             strNumber += number;      
           }
         }
@@ -129,7 +134,7 @@ public class Puzzle08 extends Puzzle {
       //strNumber += map.get(digit);
     }
     int nr = Integer.parseInt(strNumber);
-    System.out.println("number: " + nr);
+    prl("number: " + nr);
     return nr;
   }
 
@@ -149,7 +154,7 @@ public class Puzzle08 extends Puzzle {
         case 3: numbers[7] = pattern; map.put(pattern, "7"); break;
         case 4: numbers[4] = pattern; map.put(pattern, "4"); break;
         case 7: numbers[8] = pattern; map.put(pattern, "8"); break;
-        default: System.out.println("uitzoeken: " + pattern);
+        default: prl("uitzoeken: " + pattern);
       }      
     }     
     
@@ -157,12 +162,12 @@ public class Puzzle08 extends Puzzle {
     for (String pattern : patterns) {
       if (map.get(pattern) == null) {
         if (pattern.length() == 5) {
-          //System.out.println("Found the 3 in " + pattern);
+          //prl("Found the 3 in " + pattern);
           // then we have a 2,3 or 5
           // the 3 pattern must have the 1 pattern in it
           int count = 0;
           for (int i = 0; i < numbers[1].length(); i++) {
-            //System.out.println("Check if " + numbers[1].substring(i,i+1) + " is present");
+            //prl("Check if " + numbers[1].substring(i,i+1) + " is present");
             for (int j= 0; j < pattern.length(); j++) {
               if (pattern.substring(j,j+1).equals(numbers[1].substring(i,i+1))) {
                 count++;
@@ -170,7 +175,7 @@ public class Puzzle08 extends Puzzle {
             }
           }
           if (count == numbers[1].length()) {
-            System.out.println("we found the 3 = " + pattern);          
+            prl("we found the 3 = " + pattern);          
             numbers[3] = pattern;
             map.put(pattern, "3");
           }        
@@ -183,10 +188,10 @@ public class Puzzle08 extends Puzzle {
       if (map.get(pattern) == null) {
         if (pattern.length() == 5) {
           // 3 digits of the 4 are present in the 5
-          System.out.println("Found the 5 in " + pattern);
+          prl("Found the 5 in " + pattern);
           int count = 0;
           for (int i = 0; i < numbers[4].length(); i++) {
-            //System.out.println("Check if " + numbers[1].substring(i,i+1) + " is present");
+            //prl("Check if " + numbers[1].substring(i,i+1) + " is present");
             for (int j= 0; j < pattern.length(); j++) {
               if (pattern.substring(j,j+1).equals(numbers[4].substring(i,i+1))) {
                 count++;
@@ -195,7 +200,7 @@ public class Puzzle08 extends Puzzle {
           }
   
           if (count == 3) {
-            System.out.println("we found the 5 = " + pattern);
+            prl("we found the 5 = " + pattern);
             numbers[5] = pattern;
             map.put(pattern, "5");
           }
@@ -207,7 +212,7 @@ public class Puzzle08 extends Puzzle {
     for (String pattern : patterns) {
       if (map.get(pattern) == null) {
         if (pattern.length() == 5) {
-            System.out.println("we found the 2 = " + pattern);
+            prl("we found the 2 = " + pattern);
             numbers[2] = pattern;
             map.put(pattern, "2");
           }
@@ -221,7 +226,7 @@ public class Puzzle08 extends Puzzle {
           // all characters of the 4 are present in the in the 9
           int count = 0;
           for (int i = 0; i < numbers[4].length(); i++) {
-            //System.out.println("Check if " + numbers[1].substring(i,i+1) + " is present");
+            //prl("Check if " + numbers[1].substring(i,i+1) + " is present");
             for (int j= 0; j < pattern.length(); j++) {
               if (pattern.substring(j,j+1).equals(numbers[4].substring(i,i+1))) {
                 count++;
@@ -230,7 +235,7 @@ public class Puzzle08 extends Puzzle {
           }
   
           if (count == 4) {
-            System.out.println("we found the 9 = " + pattern);
+            prl("we found the 9 = " + pattern);
             numbers[9] = pattern;
             map.put(pattern, "9");
           }          
@@ -245,7 +250,7 @@ public class Puzzle08 extends Puzzle {
           // the characters of the 1 are present in 0 and not in 6
           int count = 0;
           for (int i = 0; i < numbers[1].length(); i++) {
-            //System.out.println("Check if " + numbers[1].substring(i,i+1) + " is present");
+            //prl("Check if " + numbers[1].substring(i,i+1) + " is present");
             for (int j= 0; j < pattern.length(); j++) {
               if (pattern.substring(j,j+1).equals(numbers[1].substring(i,i+1))) {
                 count++;
@@ -254,7 +259,7 @@ public class Puzzle08 extends Puzzle {
           }
   
           if (count == 2) {
-            System.out.println("we found the 0 = " + pattern);
+            prl("we found the 0 = " + pattern);
             numbers[0] = pattern;
             map.put(pattern, "0");
           }          
@@ -265,22 +270,22 @@ public class Puzzle08 extends Puzzle {
     // So the last has to be the 6
     for (String pattern : patterns) {
       if (map.get(pattern) == null) {
-        System.out.println("we found the 6 = " + pattern);
+        prl("we found the 6 = " + pattern);
         numbers[6] = pattern;
         map.put(pattern, "6");
       }
     }
     
     for (int i = 0; i < 10; i++) {
-      System.out.println("numbers["+i+"] = " + numbers[i]);
+      prl("numbers["+i+"] = " + numbers[i]);
     }
     for (String value : map.keySet()) {
-      System.out.println(value + " -> " + map.get(value));
+      prl(value + " -> " + map.get(value));
     }    
    return map; 
   }
 
   public void printResult() {    
-    System.out.println(this + "; Result: " + this.getResult());
+    prl(this + "; Result: " + this.getResult());
   }   
 }

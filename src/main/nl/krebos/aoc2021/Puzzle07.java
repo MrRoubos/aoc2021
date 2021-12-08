@@ -10,8 +10,8 @@ import java.util.Map;
 public class Puzzle07 extends Puzzle {
   boolean part2 = false; 
     
-  public Puzzle07(String name, int day, String part) {
-    super(name, day, part);
+  public Puzzle07(String name, int day, int part, String file) {
+    super(name, day, part, file);
   }
 
   /**
@@ -24,7 +24,7 @@ public class Puzzle07 extends Puzzle {
   public long part1() {       
     String[] values = readFile();
     Map<String, Integer> map = new HashMap<>();
-    System.out.println("Values from file: " + values.length);
+    prl("Values from file: " + values.length);
     int maxPos=0;
     for (String value : values ) {
       Integer hpos = map.get(value);
@@ -39,7 +39,7 @@ public class Puzzle07 extends Puzzle {
         map.put(value, 1);
       }
     }
-    System.out.println("Unique values: " + map.size());
+    prl("Unique values: " + map.size());
 
     int min = Integer.MAX_VALUE;
     String minPos = "";
@@ -50,22 +50,22 @@ public class Puzzle07 extends Puzzle {
         mapCostsPerPos = calculateFuel(pos, map, mapCostsPerPos);  
       }
     } else {
-      System.out.println("---part 2 ---");
-      System.out.println("calc: " + calc(4));
-      System.out.println("calc: " + calc(11));
+      prl("---part 2 ---");
+      prl("calc: " + calc(4));
+      prl("calc: " + calc(11));
       for (int i=1; i <= maxPos; i++) {
         mapCostsPerPos = calculateFuel("" + i, map, mapCostsPerPos);  
       }
 
     }
-    System.out.println("Now choose the cheapest");
+    prl("Now choose the cheapest");
     for (String pos :  mapCostsPerPos.keySet()) {
         if (mapCostsPerPos.get(pos) < min) {
           min = mapCostsPerPos.get(pos);
           minPos = pos;
         }
     }    
-    System.out.println("Cheapest: minPos" + minPos + "; costs: " + min);
+    prl("Cheapest: minPos" + minPos + "; costs: " + min);
     this.setResult(min);
          
     return this.getResult();
@@ -115,7 +115,7 @@ public class Puzzle07 extends Puzzle {
          }         
        }       
        totalCost += (fuelCost * map.get(pos1));
-       //System.out.println("From: " + pos + "; to: " + pos1 + "; costs: " + fuelCost + "; total: " + totalCost);
+       //prl("From: " + pos + "; to: " + pos1 + "; costs: " + fuelCost + "; total: " + totalCost);
       }     
     }
     mapCostsPerPos.put(pos, totalCost);
@@ -139,7 +139,7 @@ public class Puzzle07 extends Puzzle {
   }
 
   public void printResult() {    
-    System.out.println(this + "; Result: " + this.getResult());
+    prl(this + "; Result: " + this.getResult());
   }   
 }
 
