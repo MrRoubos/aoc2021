@@ -87,15 +87,33 @@ public class Puzzle07 extends Puzzle {
    return result;
   }
   
+  /**
+   * A recursive variant, still for me hard to understand :(
+   * @param x
+   * @return
+   */
+  private int calc2(int x) {
+    if (x == 1) {
+      return 1; 
+    } else {
+      return (x + calc2(x - 1));
+    }
+  }    
+  
   private Map<String, Integer> calculateFuel(String pos, Map<String, Integer> map, Map<String, Integer> mapCostsPerPos) {
     int totalCost = 0;
     for (String pos1 : map.keySet()) {
       if (pos1 != pos) {
        int fuelCost = Math.abs(Integer.parseInt(pos) - Integer.parseInt(pos1));
        if (part2) {
-         fuelCost = calc(fuelCost);  
-       }
-       
+         // the normal (for-loop) variant
+         //fuelCost = calc(fuelCost);
+         
+         // the recursive variant
+         if (fuelCost > 0) {
+           fuelCost = calc2(fuelCost);  
+         }         
+       }       
        totalCost += (fuelCost * map.get(pos1));
        //System.out.println("From: " + pos + "; to: " + pos1 + "; costs: " + fuelCost + "; total: " + totalCost);
       }     
