@@ -1,4 +1,4 @@
-package nl.krebos.aoc2021.puzzle03;
+package nl.krebos.aoc2021;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,13 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.krebos.aoc2021.Puzzle;
-
 public class Puzzle03 extends Puzzle {
   public int byteLength = 0; 
   
-  public Puzzle03(String name, int day, String part) {
-    super(name, day, part);
+  public Puzzle03(String name, int day, int part, String file) {
+    super(name, day, part, file);
   }
 
   /**
@@ -40,8 +38,8 @@ public class Puzzle03 extends Puzzle {
       long leastDec = Long.parseLong(least, 2);
       this.setResult(mostDec * leastDec);
       
-      System.out.println("most: " + most + "; decimal: " + mostDec);
-      System.out.println("least " + least+ "; decimal: " + leastDec);
+      prl("most: " + most + "; decimal: " + mostDec);
+      prl("least " + least+ "; decimal: " + leastDec);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -67,8 +65,8 @@ public class Puzzle03 extends Puzzle {
         lines++;
       }
 
-      System.out.println("lines: " + lines);
-      System.out.println("all0: " + all0.size() + "; all1: " + all1.size());
+      prl("lines: " + lines);
+      prl("all0: " + all0.size() + "; all1: " + all1.size());
       // process most
       String most;
       short inspectBit = 1;
@@ -77,7 +75,7 @@ public class Puzzle03 extends Puzzle {
       } else {
         most = determineMost(all1, inspectBit);
       }
-      System.out.println("most: " + most);
+      prl("most: " + most);
 
       // process least
       String least;
@@ -87,15 +85,15 @@ public class Puzzle03 extends Puzzle {
       } else {
         least = determineLeast(all1, inspectBit);
       }
-      System.out.println("least: " + least);
+      prl("least: " + least);
 
 
       long mostDec = Long.parseLong(most.trim(), 2);
       long leastDec = Long.parseLong(least.trim(), 2);
       this.setResult(mostDec * leastDec);
       
-      System.out.println("most: " + most + "; decimal: " + mostDec);
-      System.out.println("least " + least+ "; decimal: " + leastDec);
+      prl("most: " + most + "; decimal: " + mostDec);
+      prl("least " + least+ "; decimal: " + leastDec);
       
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -108,7 +106,7 @@ public class Puzzle03 extends Puzzle {
   
   
   private String determineMost(List<String> all0, short inspectBit) {
-    System.out.println("inspectBit:" + inspectBit + "; byteLength: " + byteLength + "; all0.size: " + all0.size());
+    prl("inspectBit:" + inspectBit + "; byteLength: " + byteLength + "; all0.size: " + all0.size());
     String result;
     List<String> list0 = new ArrayList<>();
     List<String> list1 = new ArrayList<>();
@@ -117,14 +115,12 @@ public class Puzzle03 extends Puzzle {
       return all0.get(0);
     }
     
-    int count0 = 0;
     String value;
     for (int i = 0 ; i < all0.size(); i++) {
       value = all0.get(i);
-      System.out.println("value: " + value +
+      prl("value: " + value +
       "; inspectBit: " + inspectBit + "; value: " + value.substring(inspectBit,inspectBit + 1));
       if (value.substring(inspectBit,inspectBit + 1).equals("0")) {
-        count0++;
         list0.add(value);
       } else {
         list1.add(value);
@@ -140,7 +136,7 @@ public class Puzzle03 extends Puzzle {
   }
   
   private String determineLeast(List<String> all0, short inspectBit) {
-    System.out.println("inspectBit:" + inspectBit + "; byteLength: " + byteLength + "; all0.size: " + all0.size());
+    prl("inspectBit:" + inspectBit + "; byteLength: " + byteLength + "; all0.size: " + all0.size());
     String result;
     List<String> list0 = new ArrayList<>();
     List<String> list1 = new ArrayList<>();
@@ -149,14 +145,12 @@ public class Puzzle03 extends Puzzle {
       return all0.get(0);
     }
     
-    int count0 = 0;
     String value;
     for (int i = 0 ; i < all0.size(); i++) {
       value = all0.get(i);
-      System.out.println("value: " + value +
+      prl("value: " + value +
       "; inspectBit: " + inspectBit + "; value: " + value.substring(inspectBit,inspectBit + 1));
       if (value.substring(inspectBit,inspectBit + 1).equals("0")) {
-        count0++;
         list0.add(value);
       } else {
         list1.add(value);
@@ -186,7 +180,7 @@ public class Puzzle03 extends Puzzle {
   private String determineMostCommon(long lines, long[] zeroes) {
     StringBuffer sb = new StringBuffer();
     for (int i = 0; i < zeroes.length; i++) {
-      System.out.println("Lines: " + lines + "; nr of zeroes: " + zeroes[i] );
+      prl("Lines: " + lines + "; nr of zeroes: " + zeroes[i] );
       if (zeroes[i] > lines /2) {
         sb.append("0");
       } else {
@@ -197,7 +191,7 @@ public class Puzzle03 extends Puzzle {
   }
 
   public void printResult() {    
-    System.out.println(this + "; Result: " + this.getResult());
+    prl(this + "; Result: " + this.getResult());
   }
     
   private void processLine(String input, long [] zeroes) {
@@ -207,8 +201,8 @@ public class Puzzle03 extends Puzzle {
       }
     }
   }
-}
-class Line {
-  String direction;
-  Long distance;
+  class Line {
+    String direction;
+    Long distance;
+  }  
 }

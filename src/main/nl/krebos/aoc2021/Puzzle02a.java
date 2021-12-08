@@ -1,22 +1,19 @@
-package nl.krebos.aoc2021.puzzle02;
+package nl.krebos.aoc2021;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import nl.krebos.aoc2021.Puzzle;
-
 public class Puzzle02a extends Puzzle {
   
-  public Puzzle02a(String name, int day, String part) {
-    super(name, day, part);
+  public Puzzle02a(String name, int day, int part, String file) {
+    super(name, day, part, file);
   }
 
   public long part1() {
-    long result = 0;
     try (var reader = new BufferedReader(new FileReader(this.getInputFile()))) {
-      Long x = 0L, depth = 0L, aim = 0L;
+      Long x = 0L, depth = 0L;
       String input;
       while ((input = reader.readLine()) != null) {
         Line line = processLine(input);
@@ -31,10 +28,10 @@ public class Puzzle02a extends Puzzle {
             depth -= line.distance;
             break;
         }
-        System.out.println("horizontal: " + x + "; depth: " + depth);
+        prl("horizontal: " + x + "; depth: " + depth);
       }
       this.setResult(x * depth);
-      System.out.println("horizontal: " + x + "; depth: " + depth + "; multiplied = " +this.getResult());
+      prl("horizontal: " + x + "; depth: " + depth + "; multiplied = " +this.getResult());
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -46,8 +43,7 @@ public class Puzzle02a extends Puzzle {
     return this.getResult();
   }
 
-  public long part2() {
-    long result = 0;
+  public long part2() {    
     try (var reader = new BufferedReader(new FileReader(this.getInputFile()))) {
       Long x = 0L, depth = 0L, aim = 0L;
       String input;
@@ -67,10 +63,10 @@ public class Puzzle02a extends Puzzle {
             aim -= line.distance;
             break;
           }
-        System.out.println("horizontal: " + x + "; depth: " + depth + "; aim: " + aim);
+        prl("horizontal: " + x + "; depth: " + depth + "; aim: " + aim);
       }    
       this.setResult(x * depth);
-      System.out.println("horizontal: " + x + "; depth: " + depth + "; multiplied = " +this.getResult());
+      prl("horizontal: " + x + "; depth: " + depth + "; multiplied = " +this.getResult());
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -83,7 +79,7 @@ public class Puzzle02a extends Puzzle {
   }  
   
   public void printResult() {    
-    System.out.println(this + "; Result: " + this.getResult());
+    prl(this + "; Result: " + this.getResult());
   }
   
   private static Line processLine(String input) {
