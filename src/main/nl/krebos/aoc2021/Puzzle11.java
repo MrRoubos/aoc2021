@@ -18,15 +18,20 @@ public class Puzzle11 extends Puzzle {
 
   public long execute() {    
     long result = 0L;
+    Stopwatch stopwatch = new Stopwatch();
+    
     oct = new Octopus[maxX][maxY];
 
     if (this.getPart() == 1) {
       result = part1();
+      stopwatch.split("end of part1");
     } else {
       result = part2();
+      stopwatch.split("end of part2");
     }
+    
     this.setResult(result);
-    printResult();
+    printResult(); 
     return result;
   }
 
@@ -45,10 +50,6 @@ public class Puzzle11 extends Puzzle {
       }
       prl("After Step: " + (i+1));
       printMap();
-      if (checkAllflashed()) {
-        prl("All flashed, Step : " + (i+1));
-        break;
-      }
       resetFlashed();
     }      
     result = countHighLighted();
@@ -56,14 +57,19 @@ public class Puzzle11 extends Puzzle {
   }
 
   private boolean checkAllflashed() {
-    boolean result = false;
+    boolean result = true;
     long total=0L;
     for (int y=0; y<maxY; y++) {
       for (int x=0; x<maxX; x++) {
         if (oct[x][y].energy==0) {
           total++;
-        };
+        } else {
+          // we can already quit if there is one octopus NOT flashing
+          result = false;
+          break;
+        }
       }
+      if (! result) break;
     }
     if (total == (maxX * maxY)) {
      result = true; 
@@ -185,7 +191,6 @@ public class Puzzle11 extends Puzzle {
         }        
       } 
     }    
-
     return flash;
   }
 
@@ -250,9 +255,28 @@ public class Puzzle11 extends Puzzle {
     }    
   }
 
-  
   private long part2() {
-    long result = 0L;   
+    long result = 0L;
+    readFile();
+    prl("Before any step: ");
+    printMap();
+    // execute steps
+    for (int i=0; i<steps; i++) {
+      Stack<Octopus >flashes = new Stack<>();
+      flashes = increaseEnergy();
+
+      if (flashes.size() > 0) {
+        flash(flashes);        
+      }
+      prl("After Step: " + (i+1));
+      printMap();
+      if (checkAllflashed()) {
+        result = i+1;
+        prl("All flashed, Step : " + result);
+        break;
+      }
+      resetFlashed();
+    }      
     return result;
   }
   
@@ -274,8 +298,6 @@ class Octopus {
   }
   public String toString() {
     return "Octopus: x,y: " + x + ";" + y 
-        + "; energy: " +  energy + "; flashes: " + flashes + "; fis: " + flashedInStep;
-    
-    
+        + "; energy: " +  energy + "; flashes: " + flashes + "; fis: " + flashedInStep;        
   }
 }

@@ -32,29 +32,28 @@ public class Puzzle11Test {
     pzzl.maxY=10;
     pzzl.steps=200;
     long result = pzzl.execute();
-    //assertEquals(1656,result);
+    assertEquals(3125,result);
   }  
   
   @Test
   void test2() {
-    Puzzle11 pzzl = new Puzzle11("Dumbo Octopus", 11, 1, "data/puzzle11b.txt");
+    Puzzle11 pzzl = new Puzzle11("Dumbo Octopus", 11, 2, "data/puzzle11b.txt");
     pzzl.maxX=10;
     pzzl.maxY=10;
     pzzl.steps=100;    
     long result = pzzl.execute();
-    assertEquals(1691,result);
+    //assertEquals(1691,result);
   }
   
   @Test
   void test2a() {
-    Puzzle11 pzzl = new Puzzle11("Dumbo Octopus", 11, 1, "data/puzzle11b.txt");
+    Puzzle11 pzzl = new Puzzle11("Dumbo Octopus", 11, 2, "data/puzzle11b.txt");
     pzzl.maxX=10;
     pzzl.maxY=10;
     pzzl.steps=1000;    
     long result = pzzl.execute();
-    //assertEquals(1691,result);
-  }  
-  
-    
+    // on laptop, 346 ms 
+    assertEquals(216,result);
+  }      
 }
 
