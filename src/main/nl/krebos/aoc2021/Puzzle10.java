@@ -72,35 +72,6 @@ public class Puzzle10 extends Puzzle {
     }        
   }
 
-  private boolean complete(String input) {
-    boolean complete = true;
-    int [] count = new int[8];
-    for (int x=0; x < input.length();x++) {
-      String chunk = input.substring(x, x+1);
-      switch (chunk) {
-        case "(": count[0]++; break;   
-        case "[": count[1]++; break;
-        case "{": count[2]++; break;
-        case "<": count[3]++; break;
-        case ")": count[4]++; break;
-        case "]": count[5]++; break;
-        case "}": count[6]++; break;
-        case ">": count[7]++; break;
-      }
-    }
-    prl(count[0] + " -> " + count[4]);
-    prl(count[1] + " -> " + count[5]);
-    prl(count[2] + " -> " + count[6]);
-    prl(count[3] + " -> " + count[7]);
-    if (count[0] != count[4] 
-        || count[1] != count[5]
-        || count[2] != count[6]
-        || count[3] != count[7]) {
-      complete=false;
-    }    
-    return complete;
-  }
-
   private long part2() {
     long result = 0L;   
     String input = "";
