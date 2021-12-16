@@ -1,8 +1,10 @@
 package nl.krebos.aoc2021;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,15 +23,7 @@ public class Puzzle14 extends Puzzle {
   Set<String> quantity = new HashSet<>();
   Map<String, Integer> totals = new HashMap<>();
   Stack<String> list = new Stack<>();
-  Stack<String> list2 = new Stack<>();
-  String[] list3=null;
-  
-  public static void main (String [] args) {
-    Puzzle14 pzl = new Puzzle14("bla", 14, 2, "data/puzzle14a2.txt");
-    pzl.steps=20;
-    pzl.execute();
-    
-  }
+  Map<String, Integer> tot = new HashMap<>();  
   
   public Puzzle14(String name, int day, int part, String file) {
     super(name, day, part, file);    
@@ -43,7 +37,12 @@ public class Puzzle14 extends Puzzle {
       result = part1();
       stopwatch.split("end of part1");
     } else {
-      result = part2();
+      try {
+        result = part2();
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       stopwatch.split("end of part2");
     }
     
@@ -119,7 +118,7 @@ public class Puzzle14 extends Puzzle {
     return sb.toString();
   }
 
-  private long part2() {
+  private long part2() throws IOException  {
     long result = 0L;   
     readFile();
     
@@ -127,64 +126,89 @@ public class Puzzle14 extends Puzzle {
     for(int i=0; i<poltempl.length()-1;i++) {
       list.add(poltempl.substring(i,i+2));
     }
-    //list2 = new Stack<>();
-    list3 = list.toArray(new String[0]);
-    prl("list3: " + list3.length);
-    for (int i=0; i<steps; i++) {
-      processStep2();
-//      pr(list2.get(0).substring(0,1));
-//      for (String key : list2) {
-//        pr(key.substring(1,2));
-//      }
-//      prl("");
-      list3 = list2.toArray(new String[0]);
-      
-      // prl("After step : " + (i + 1) + ": " +  stepResult);
-      //countUniques();
+    String fileName = "pzl14";
+    int fileCounter=0;
+    BufferedWriter bw = new BufferedWriter(new FileWriter(fileName + fileCounter));
+    bw.write(poltempl);          
+    bw.flush();
+    bw.close();
+    fileCounter++;
+
+    for (int i=0; i<steps; i++) {     
+      prl ("File " + fileCounter);
+      bw = new BufferedWriter(new FileWriter(fileName + fileCounter));
+      processStep2(bw, fileName, fileCounter);      
+      bw.close();
+      fileCounter++;
     }          
     prl("unique values: " + quantity.size());
-    countUniques2();
+    countUniques2(fileName, fileCounter);
     List<Integer> totalList = new ArrayList<>();
-    for (String key : totals.keySet()) {
-      prl (key + " = " + totals.get(key));
-      totalList.add(totals.get(key));
+   
+    
+    for (String key : tot.keySet()) {
+      prl (key + " = " + tot.get(key));
+      totalList.add(tot.get(key));
     }
     Collections.sort(totalList);
     result = totalList.get(totalList.size()-1) - totalList.get(0);
     return result;
   }
 
-  private void processStep2() {
-    String element=null;            
-    for(String check : list3) {
+  private void processStep2(BufferedWriter bw, String fileName, int fileCounter) throws IOException {
+    String element=null;
+    String last=null;
+    BufferedReader br = new BufferedReader(new FileReader(fileName + (fileCounter-1)));
+    int a =0;
+    int b =0;
+    int count=0;
+    String check = null;
+    String prevCheck=null;
+    while ((a = br.read()) != -1) {
+      if (count == 0 ) {
+        check = "" + (char)a;
+        b = br.read();
+        check = check + (char)b;
+        count++;
+      } else {
+        check = prevCheck.substring(1,2) + (char)a;
+      }
+            
       //prl("Check: " +check);
       element = piRules.get(check);
-      if (element != null) {
-        list2.push(check.substring(0,1) + element);
-        list2.push(element + check.substring(1,2));
-        
+      if (element != null) {        
+        String write = check.substring(0,1) + element;
+        //prl("write: " + write);
+        bw.write(write);
         quantity.add(check.substring(0,1));
         quantity.add(element);        
       }
+      last = check.substring(1,2);
+      prevCheck = check;
     }
+    bw.write(last);
+    bw.flush();      
   }
 
-  private void countUniques2() {
+  private void countUniques2(String fileName, int fileCounter) throws IOException {
     Iterator<String> it = quantity.iterator();
-    String check=null;
-    int count=0;
-        
     while (it.hasNext()) {
-      count=0;
-      check = it.next();
-      for (String key : list3) {
-        if (key.substring(1,2).equals(check)) {
-          count++;          
-        }
-      }
-      totals.put(check, count);
+      tot.put(it.next(), 0);
     }
-    check = null;
+    
+    BufferedReader br = new BufferedReader(new FileReader(fileName + (fileCounter-1)));
+    int a =0;
+    int b =0;
+    int count=0;
+    String check = null;
+    String prevCheck=null;
+    while ((a = br.read()) != -1) {
+      check = "" + (char)a;
+      int value = tot.get(check);
+      value++;
+      tot.put(check, value);
+    }      
+    br.close();
   }
 
   

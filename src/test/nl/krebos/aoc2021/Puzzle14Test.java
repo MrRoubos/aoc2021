@@ -39,7 +39,7 @@ public class Puzzle14Test {
   
   @Test
   void test2c() {
-    Puzzle14 pzzl = new Puzzle14("Extended Polymerization", 14, 2, "data/puzzle14a2.txt");
+    Puzzle14 pzzl = new Puzzle14("Extended Polymerization", 14, 2, "data/puzzle14a1.txt");
     pzzl.steps = 20;
     long result = pzzl.execute();
     //assertEquals(3306,result);
