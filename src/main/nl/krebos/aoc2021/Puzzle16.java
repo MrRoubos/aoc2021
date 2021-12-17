@@ -103,8 +103,14 @@ public class Puzzle16 extends Puzzle {
     Package pack = new Package();
     packages.add(pack);
     pack.version = getVersion();
-    pack.type = getVersion();
-    totalpack += Integer.parseInt(pack.version);
+    pack.type = getVersion();    
+    if (pack.version != null && pack.version.length() > 0 ) {
+      totalpack += Integer.parseInt(pack.version);
+    } else {
+      pack.version = "0";
+      return;
+    }
+
     prl("Package: " + pack + "; pointer: " + pointer + "; total versions: " + totalpack);
               
     if (pack.type.equals("4")) {
@@ -131,15 +137,13 @@ public class Puzzle16 extends Puzzle {
         pointer++;
         String nr="";
         for (int i=0; i<11; i++) {
-          if (pointer > binaries.size()-1) break;
           nr += binaries.get(pointer);
           pointer++;
         }
         int subs = Integer.parseInt(nr, 2);
         prl("- nr of subs: " + nr + "; = " + subs);
-        processPackage();
-        while (pointer < binaries.size() && binaries.get(pointer).equals(0)) {
-          pointer++;
+        if (subs > 0 ) {
+          processPackage();          
         }
 
       } else if (binaries.get(pointer).equals(0)) {
@@ -147,14 +151,17 @@ public class Puzzle16 extends Puzzle {
         pointer++;
         String nr="";
         for (int i=0; i<15; i++) {
-          if (pointer > binaries.size()-1) break;
           nr += binaries.get(pointer);
           pointer++;
         }
         if (nr.length() > 0) {
           int subs = Integer.parseInt(nr, 2);
-          prl("- nr of subs: " + nr + "; = " + subs);
-          processPackage();          
+          prl("- nr of bits: " + nr + "; = " + subs);
+          processPackage();           
+          while (pointer < binaries.size() && binaries.get(pointer).equals(0)) {
+            pointer++;
+          }
+
         }
       }
     }        
