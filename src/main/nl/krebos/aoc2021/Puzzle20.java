@@ -70,13 +70,16 @@ public class Puzzle20 extends Puzzle {
 			while ((input = reader.readLine()) != null) {
 				//newLine = "....." + input + ".....";
 				newLine = input;
-				if (line == 0) {
+				if (line == 0) {			    
 					line++;					
 					maxX = newLine.length();					 
-			    for (int x1=0; x1<maxX;x1++) {
-			    	emptyLine += ".";
-			    }
-			    prl(emptyLine);
+//			    for (int x1=0; x1<maxX;x1++) {
+//			    	emptyLine += ".";
+//			    }
+//			    //prl(emptyLine);
+//			    queue.add(emptyLine);
+//			    queue.add(emptyLine);
+//			    queue.add(emptyLine);			    			    
 				}
 
 				if (queue.size() < 3) {
@@ -85,9 +88,21 @@ public class Puzzle20 extends Puzzle {
 				if (queue.size() == 3 ){
 					enhance(queue, newLine.length());
 					queue.remove();
+					//break;
 				}
 			}
-	    prl(emptyLine);
+//			queue.add(emptyLine);
+//			enhance(queue, emptyLine.length());
+//			queue.remove();
+//			queue.add(emptyLine);
+//			enhance(queue, emptyLine.length());
+//			queue.remove();
+//			queue.add(emptyLine);
+//			enhance(queue, emptyLine.length());
+//			queue.remove();
+			prl("queue length: " + queue.size());
+			
+	    //prl(emptyLine);
 	    prl("");
 
 		} catch (FileNotFoundException e) {
@@ -112,7 +127,7 @@ public class Puzzle20 extends Puzzle {
 		}
 		
     int x = 1;    
-		pr(".");    
+		//pr(".");    
 		while (process) {
 			if (x < maxX-1) {
 				String bin = map[x-1][0] + map[x][0] + map[x+1][0];
@@ -131,7 +146,7 @@ public class Puzzle20 extends Puzzle {
 				process = false;
 			}
 		}
-		pr("..");
+		//pr("..");
 		prl("");
 
 		
