@@ -1,0 +1,33 @@
+
+Pathfinding - short route
+  https://www.redblobgames.com/pathfinding/a-star/introduction.html
+
+  BFS - Breadth First Search 
+  https://www.baeldung.com/java-breadth-first-search 
+  https://www.baeldung.com/cs/graph-algorithms-bfs-dijkstra
+  http://opendatastructures.org/versions/edition-0.1e/ods-java/12_3_Graph_Traversal.html#SECTION001531000000000000000
+  https://towardsdatascience.com/graph-theory-bfs-shortest-path-problem-on-a-grid-1437d5cb4023
+
+  Dijkstra's algorithm
+  
+  A* algorithm
+  https://www.baeldung.com/java-a-star-pathfinding
+  http://www.cokeandcode.com/main/tutorials/path-finding/
+
+Cartesian / Cartesisch product
+https://nl.wikipedia.org/wiki/Cartesisch_product
+https://nl.wikipedia.org/wiki/Cartesisch_co%C3%B6rdinatenstelsel
+https://stackoverflow.com/questions/6563589/finding-cartesian-product-in-java
+
+
+Puzzle15, oplossen m.b.v. BFS?
+https://towardsdatascience.com/graph-theory-bfs-shortest-path-problem-on-a-grid-1437d5cb4023
+https://www.baeldung.com/java-breadth-first-search
+https://github.com/eugenp/tutorials/blob/master/algorithms-searching/src/test/java/com/baeldung/algorithms/breadthfirstsearch/BreadthFirstSearchAlgorithmUnitTest.java
+
+for y
+  for x
+    add each node
+    
+Node
+int value
